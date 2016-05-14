@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-  
+
+  resources "contacts", only: [:new, :create]
+
   resources :categories
 
   resources :articles do

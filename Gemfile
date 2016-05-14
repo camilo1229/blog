@@ -30,6 +30,8 @@ gem "aasm" #Gema para gestiona maquinas de estado
 gem "will_paginate" #Gema para crear paginaciones 
 gem "epic-editor-rails" #Gema para instalar el edito de epicEditor
 gem "sanitize"#Limpia el html para q no se ponga codigo malicioso
+gem 'mail_form'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
