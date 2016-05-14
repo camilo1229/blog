@@ -1,0 +1,50 @@
+<% name ||="Crear" %><!-- SI LA VARIABLE NO ESTA DEFINIDAD CREALA CON ESTE VALOR-->
+<h1><%= name %> articulo</h1>
+<%= form_for(@article, html: {id: "articles_form"}) do |f| %>
+	<% @article.errors.full_messages.each do |message| %> <!-- ZONA DE ERRORES DE LAS VALIDACIONES A LA HORA DE CREAR UN ARTICULO --> 
+		<div class="be-red white to-space">
+			*<%= message %>
+		</div>
+	<%end%>
+	<div class="field">
+		<%= f.text_field :title, placeholder: "Titulo", class:"form-control"%>
+	</div>
+	<div class="field">
+		Portada <%= f.file_field :cover %> <!-- Campo perteneciente a la img-->
+	</div>
+	<div class="field">
+		<%= f.hidden_field :body, id:"body-textarea" %>
+		<%= f.hidden_field :markup_body, id:"markup-body-textarea" %>
+		<div id="epiceditor" style:"height:350px;"></div><!-- ID de EpicEditor, muestra el editor en la pagina -->
+	</div>
+	<div class="field">
+		<label>Categorias</label>
+		<% @categories.each do |category| %>
+			<div class="field">
+				<%= check_box_tag "categories[]", category.id %> <%= category.name %><!--Este control llena un arreglo q a la vez es su nombre(category[]), permite guardar las opciones seleccionadas en el arreglo -->
+			</div>
+		<%end%>
+	</div>
+
+	<div class="field">
+		<%= f.submit "Guardar", class:"btn be-red white" %>
+	</div>
+<%end%>
+
+<!-- Inicializacion de editor de epicEditor -->
+<script>
+
+	var editor = new EpicEditor({
+		textarea :"markup-body-textarea",
+		file:{
+			name:"nuevo_articulo"
+		}
+	});
+	editor.load();
+	
+	$("#articles_form").on("submit",function(){
+		$("#body-textarea").val( editor.exportFile("nuevo_articulo", "html"));
+		$("#markup-body-textarea").val( editor.exportFile("nuevo_articulo"));
+	});
+
+</script>

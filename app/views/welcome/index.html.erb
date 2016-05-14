@@ -1,0 +1,3 @@
+<% if user_signed_in?%><!-- Si el usuario esta conectado o inicio sesion haga-->
+	<h1>Bienvenido <%= current_user.email %></h1><!-- current_user: permite tener acceso a los datos del usuario q este logeado -->
+<%end%>

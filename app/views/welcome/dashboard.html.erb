@@ -1,0 +1,12 @@
+<!-- Muestra todos los articulos para posteriormente elegir si publicarlos por el admin o eliminarlos-->
+<% @articles.each do |article|%>
+	<h1> <%= link_to article.title, article %></h1>
+	<div>
+		<%= article.body %>  - <%= link_to "Eliminar", article, method: :delete, class:"red" %>
+		- 
+		<% if article.may_publish? %> <!--Q aparezca solo si el articulo esta en estado "in_draft(en borrador)" -->
+			<%= link_to "Publicar", "/articles/#{article.id}/publish", method: :put, class:"blue" %>
+		<%end%>
+	</div>
+
+<%end%>

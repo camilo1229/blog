@@ -1,0 +1,31 @@
+<header>
+	<nav class="be-red white large-padding">	
+		<ul class="no-list row center-xs middle-xs">
+			<li class="col-md">
+				<h1 class="no-margin" id="logo"><%= link_to "Blog facilito", root_path %> </h1>
+			</li>
+			<li class="col-md">
+				<%= link_to "Articulos", articles_path %>
+			</li>
+			<% @categories.each do |category| %> <!-- Me muestra las diferentes category-->
+				<li class="col-md">
+					<%= link_to category.name, category %><!-- Me redirije al show de ese category-->
+				</li>
+			<%end%>
+			
+			
+			<% if user_signed_in? %> <!-- SI EL USUARIO ESTA CONECTADO HAGA-->
+				<li class="col-md">
+					<%= link_to "Cerrar sesion", destroy_user_session_path, method: :delete %>
+				</li>
+			<%else%>
+				<li class="col-md">
+					<%= link_to "Iniciar sesion", new_user_session_path %><!--User: Corresponde al modelo q se creo con devise -->
+				</li>
+				<li class="col-md">
+					<%= link_to "Crear cuenta", new_user_registration_path %><!-- -->
+				</li>
+			<% end %>
+		</ul>	
+	</nav>
+</header>

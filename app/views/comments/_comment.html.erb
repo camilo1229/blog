@@ -1,0 +1,18 @@
+<article>
+	<header class="text-right be-small">
+		<%= time_ago_in_words(comment.created_at) %> ago - <%= link_to "Borrar", [@article,comment], method: :delete, class:"red" %> <!-- time_ago_in_words: helper. Muestra el tiempo desde q se creo el comentario -->
+	</header>
+	<div class="row">
+		<div class="col-xs-1 col-md-1">
+			<div class="box">
+				<%= image_tag(comment.user.avatar) %> <!-- img del usuario -->
+			</div>
+		</div>
+		<div class="col-xs-11 col-md-10">
+			<div class="box">
+				<%= comment.body %><!-- Muestra el cuerpo de comentario -->
+			</div>
+		</div>
+
+	</div>
+</article>

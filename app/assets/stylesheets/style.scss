@@ -1,0 +1,93 @@
+html,body{
+	margin: 0px;
+	font-family: 'Open Sans', sans-serif;
+}
+.btn{
+	background-color: inherit;
+	border: none;
+	outline: none;
+	text-transform: uppercase;
+	cursor: pointer;
+	font-size: 1.2em;	
+	padding: 10px 12px;
+}
+.red{
+	color: #E74C3C !important;
+}
+.blue{
+	color: #66CCFF !important;
+}
+.be-big{
+	font-size: 2em;
+}
+.underline{
+	text-decoration: underline;
+}
+.be-red{
+	background-color: #E74C3C;
+}
+.white{
+	color: #ECF0F1;
+}
+.grey{
+	color: #616161;
+}
+.relative{
+	position: relative;
+}
+.article-height{
+	height: 150px;
+}
+.absolute{
+	position: absolute;
+}
+a,a:visited{	
+	color: inherit;
+	text-decoration: none;
+}
+#logo{
+	font-size: 1.2em;
+}
+.text-center{
+	text-align: center;
+}
+.text-right{
+	text-align:right;
+}
+.text-justify{
+	text-align: justify;
+}
+.be-small{
+	font-size: 12px;
+}
+.no-margin{
+}
+.large-padding{
+	padding: 1px 5px;
+}
+ul,li{
+	list-style: none;
+	}
+.field,.to-space,.actions{
+	margin-top: 1em;
+}
+.background-cover{
+	background-position: center !important;
+	background-size:cover;
+
+}
+.text-left{
+	text-align: left;
+}
+.form-control{
+	border: none;
+	border-bottom: 1px solid;
+	outline: none;
+	width: 100%;
+	display: block;
+	padding: 10px 0px;
+	font-size: 1.2em;
+}
+.botton-space{
+	margin-bottom: 2em;	
+}

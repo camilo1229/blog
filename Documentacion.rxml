@@ -1,0 +1,261 @@
+1- Se crea un controller welcome = rails g controller welcome index.
+2- Se instala la libreria Flexbox, carpeta dist-archivo css a asset stylesheets.
+3- Se crea el modelo Article = rails g model Article title:string body:text visits_count:integer.
+4- Se hace una migracion = rake db:migrate.
+5- Se modifica el layout, se creo el menu con estilos y flexbox.
+6- Y se crea una hoja de estilos = stile.css en aseets-styleshets.
+
+7- Se crea en el router el resources articles = resource :articles.
+8- Se crea el controlador articles.
+9- Se crean la accion index, show con su vistas.
+
+10- se crea el metodo new en controller.
+11- se crea la vista new.html.erb en views.
+12- Se crea el metodo create en el controller.
+
+13- Se hacen las validaciones para article en el modelo.
+14- Se modifica el controller article, se le pone una validacion para q funcione la validacion.
+15- Se le pone a la vista new una zona de errores.
+
+16- Se crea el metodo destroy en el controller.
+17- se crea el boton delete en la vista index.
+
+STRONG PARAMS:
+18- Se creo el metodo article_params o strong_params en article_controller.
+19- Se cambia el parametro del metodo crear en controller por article_params
+
+PARCIALES:
+20- Se crea el metodo edit en controller article.
+21- Se crea la vista edit.html.erb en articulo.	
+22- Se crea el formulario _form.html.erb.
+23- Se modifica la vista new y edit para q funcione con el formulario.
+24- Se crea el metodo update.
+25- Se modifica la vista index(link_to), show(Link_to "Editar")
+
+DEVISE 1:
+26- Se agrega la gema Devise al Gemfile y se ejecuta un Bundle install en el terminal.
+27- Se ejecut el generador rails g devise:install.
+28- Se pegan los flash message en el layout.
+29- Se crea el modelo de Devise, rails g devise User. 
+30- Se modifica la migracion de devise y se ejecuta una migracion en el terminal.
+31- Se modifica el layout, se crea un boton de cerrar sesion si se esta conectado. 
+
+DEVISE 2:
+32- Se crea la carpeta partial con el formulario _navigation, se pasa parte del codigo del layout a este para ordenarlo con un render.
+33- Se ejecuta en la consola el generador rails g devise:views.
+34- Se modifca las vistas de devise-registrations-new y devise session-new.
+35- Se modifica la vista welcome-index.
+
+ASOCIACIONES:
+36- Se ejecuta el generador rails g migration add_user_id_to_articles user:references(AGREGA UN CAMPO A LA TABLA ARTICLES Q REFERENCIA A LA USER)
+37- Se modifica la migracion y se ejecuta la migracion en el terminal.
+38- Se agregan las asociones en los modelos belongs_to=user & has_many=article
+39- Se modifica el metodo create de article.
+40- Se modifica la vista show de article.
+
+CALLBACKS:  CONSULTARLOSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS---------------------
+41- Se crea un callback o before action en el articleController.
+42- Se crea un before_save al modelo de article.
+43- Se modifica el metodo show de articles, se agrega @article.update_visits_count
+44- Se le agrega al modelo article el metodo def update_visits_countody.
+45- Se modifica vista show de articles se agrega "Visitas: <%= @article.visits_count %>".
+46- Se modifica el modelo articles, se mofica a before_save & self.visits_count ||= 0
+
+SCAFFOLD:
+47- Se ejecuta el generador "rails g scaffold Comment(MODELO) user:references article:references body:text" en el terminal.
+48- Se ejecuta la migracion en el terminal.
+
+NESTED RESOURCES:
+48- Se modifica las rutas, se pone el resource de comments dentro del de articles
+49- Se borra todo de la vista index de comments.
+50- Se agrega un render en el show de articles, haciendo referencia a los comentarios de ese articulo, hacia el formulario de comments .
+51- Se modifica el form de comments, "<%= form_for([@article, @coment]) do |f| %>".
+52- Se inicializa comments en articles_controller en el show, q se pueda crear un comentario desde la vista show de articles. 	
+53- Se le pone un asociacion al modelo user, "has_many :comments".
+54- Se modifica el metodo create de comments_controller, "@comment = current_user.comments.new(comment_params)". 
+55- Se crea un "before_action :set_article", en comments_controller. 
+56- Se modifica el metodo create de comments_controller, @comment.article = @article.
+57- Se modifica el metodo create & update de comments_controller, respond_with(@comment.article).
+58- Se modifica el metodo destroy de comments_controller, respond_with(@article).
+59- Se pone una asociacion en el modelo de articles "has_many :comments". 
+60- Se modifica el show de Articles, se le pone para q muestre los commentarios de ese articulo.
+61- Se modifica el route de comments para q solo funcionen algunos metodos, "only: [:create, :destroy, :update]".
+62- Se eliminan los metodos q funcionan con get en comments_controller.
+
+AJAX CON FORMULARIOS REMOTOS: ------------
+63- Se agrega al formulario de comments la propieda remote :true.
+64- Se agrega un ID al formulario de comments, "html:{id:"comments-form"}".
+65- Se descarga installa la gema, gem 'jquery-turbolinks', en el gemfile y se aplica un bundle install en el terminal.
+66- Se agrega una funcion en el archivo comments.coffee de la carpeta assets-javascript.
+67- Se agrega el tipo de dato al formulario de comments, :"data-type"=>"json".
+68- Se modifica el metodo create de comments_controller, en format.json "@comment.article".
+69- Se le agrega un id="comments-box" a la etiqueta "ul" del show del articles.
+70- Se agrega una nuevas funciones al archivo comments.coffee para mostar comments asincrona y para limpiar el textArea.
+
+SUBIR ARCHIVOS 1:2
+71- Se instala imagemagick, en el terminal se ejecuta sudo apt-get install imagemagick.
+72- Se ejecuta el comando en el terminal, sudo apt-get install libmagickwand-dev.
+73- Se instala gema paperclip en el Gemfile, gem "paperclip" libreria para poder subir imgs.
+74- Se ejecuta un bundle install en el terminal.
+
+SUBIR ARCHIVOS 2:2
+75- Se agrega un nuevo campo a la tabla de articles, q hace referencia a la imagen, rails g migration add_cover_to_articles.
+76- Se abre la migracion, 20151227041853_add_cover_to_articles y se modifica el metodo change.
+77- Y se ejecuta una migracion, rake db:migrate.
+78- Se agregan validaciones en el modelo article para la imagen(cover), tamaño y formato de archivo de subida.
+79- Se modifica el formulario de articles para q pueda subir imagenes, se agrega un nuevo campo o helper.
+80- Se modifica el articles_controller los strong_params, para q ahora acepten el nuevo campo(cover).
+81- Se agrega un campo para poder mostrar el cover, en el show de articles, "<%= image_tag @article.cover.url(:thumb)".
+
+CATEGORIAS DE MUCHOS A MUCHOS 1:3
+82- Se elimina el inicio del banner y se pone el enlace en el logo, "Blog facilito". 				
+83- Se agrega un nuevo enlace al index de articles al banner, "<%= link_to "Articulos", articles_path %>".
+84- Se eliminan los demas enlaces, "Diseño, Programacion, Tecnologia".
+85- Se crea un scaffold para category, "rails g scaffold Category name color".
+86- Se ejecuta una migracion, "rake db:migrate".
+87- Se hacen validaciones en el modelo de category.
+88- Se modifica en el formulario de categories el campo de color,	 "<%= f.color_field :color %>".
+89- Se elimina el archivo Scaffold q se creo al crear category de stylesheets-assets-app.
+90- Se crea un "before_action :set_categories" en controller-application_controller, 
+91- Se crea un ciclo each para las categories en el formulario del layout, para mostrar la diferentes categories.
+
+
+CATEGORIAS DE MUCHOS A MUCHOS 2:3
+92- Se crea el modelo para category, "rails g model HasCategory article:references category:references".
+93- Se ejecuta la migracion, "rake db:migrate"
+94- Se crea en el formulario de articles un campo referente a las categories.
+95- Se modifica el articles_controller para poder tener acceso a todas las categorias. "@categories = Category.all"
+96- Se crea un ciclo y un helper check_box en el formulario de articles para tener acceso a los categories.
+97- Se add categories a los strong_params en articles_controller.
+98- Se crea en el modelo de articles el metodo, "categories=(value)".
+99-	Se crea el after_create :save_categories con su me  todo en el modelo Article.
+100- Se modifica el metodo create de articles_controller, "@article = params[:categories]".
+
+CATEGORIAS MUCHOS A MUCHOS 3:3
+101- Se pone en el modelo de category un asociacion has_many :has_categories y has_many :articles, through: :has_categories .
+102- Se modifica el show de categories se agrega un ciclo each. ------------------------
+103- Se elimina en el show de categories el contenido de la segundo etiqueta <p>.
+104- Se pone en el show de categories <h1><%= @category.name %></h1>.
+	
+106- Se modifica el <h1 style="color:<%= @category.color %>;"><%= @category.name %></h1>.
+107- Se le ponen asociaciones al modelo de article, has_many :has_categories y has_many :categories, through: :has_categories.
+108- Se agrega un nuevo div al show de articles, para mostrar las categorias correspondientes a ese articulo.
+
+CONCERNS:
+Concepto de codigo q se comparte entre diferentes modelos o controladores, codigo en comun. Para crear los permisos de usuario.
+109- Se cre un archivo "permissions_concerns" en el concerns de Models.
+110- Se crea un modulo en el archivo "permissions_concerns".	
+111- Se crea un extend ActiveSupport::Concern dentro del modulo "permissions_concerns".
+112- Se genera una migracion para cambiar el tipo de campo de permissions_level a integer, "rails g migrattion change_colum_permission_level_from_string_to_integer". 		
+113- Se modifica el metodo "change" de la migracion q creo la migracion para poder modificar el campo.
+114- Se ejecuta un "rake db:migrate".
+115- En el archivo "permissions_concerns" de concerns se crea los metodos(BOLLEANOS), para los 3 tipos de usuarios.
+116- En el modelo de user, se modifica para q el "self" de los metodos de "permissions_concerns" pueda incluir el objeto "user", "include PermissionsConcerns"
+117- En application_controller se crean metodos para q funcionen igual q los de "concerns" pero ya validaciones a nivel de controladores.
+118- En "articles_controlles", se crea dos callback para ejecutar la validacion de los permisos dependiendo del tipo de usuario, "before_action :authenticate_editor!" y "before_action :authenticate_admin!".
+
+MAQUINA DE ESTADOS CON AASM:
+Para separar los articulos q estan publicados de los estan en borrador.
+Va permitir manejar como un objeto o clase va cambiando de estado.
+AASM = Gema para add maquinas de estados a clases de Ruby.
+119- Se ejecuta una migracion para crear un campo en la table articles, "rails g migration add_column_state_to_articles state".
+120- Se ejcuta una migracion, "rake db:migrate".
+121- En el GemFile se pone la gema, gem "aasm" y se ejecuta un "bundle install".
+121- En el modelo article se pone un modulo para el funcionamiento de AASM, "include AASM"
+122- En el modelo article se crea la columna q va utilizar la maquina de estado, "aasm column: "state" do" y las trancisiones entre los estados.
+123- Se ejcuta un "rake db:rollback" para devolver la migracion e implementarle a articles un campo estado.
+124- Se modifca la ultima migracion y se le add un estado al campo nuevo "state", ", default: "in_draft"".
+125- Y se ejcuta la migracion "rake db:migrate".
+
+SCOPES:
+Condiciones q se aplican al modelo para definir diferentes grupos de registros q hay en la tabla.
+126- Se modifica en articles_controller el metodo index, "@articles = Article.publicados.ultimos" .
+127- Se crea en el modelo article un scope para mostrar los articulos dependiendo de su estado(in_draft - published).
+128- Se crea en el route una ruta, "get "/dashboard", to: "welcome#dashboard"".
+129- En welcome_controller se crea un metodo "dashboard".
+130- Se crea una vista "dashboard" en welcome.
+131- Se crea en "welcome_controller" un callback, "before_action :authenticate_admin!, only:[:dashboard]".
+132- El contenido de la vista index de articles se copia a la vista "dashboard".
+133- Se agrega otro link a la vista de dashboard para publicar los articulos.
+134- En el archivo de estyle.css se agrega una nueva clase ".blue".
+135- Se crea en el route una nueva ruta para poder hacer q un articulo se publiq, "put "/articles/:id/publish", to: "articles#publish"".
+136- En "articles_controller" se crea un metodo publish q hace referencia a la ruta recien creada.
+137- En el "articles_controller" se modifica el callback "before_action :authenticate_admin!, only: [:destroy,:publish]".
+138- El la vista "dashboard" se modifica el link publicar y se pone una ruta, "/articles/#{article.id}/publish".
+
+PAGINACION:
+Permite ver los articulos entre varias paginas.
+140- Se borra el link  de borrar del index de articles.
+141- Se agrega al GemFile una gema nueva, gem "will_paginate"
+142- Se ejecuta un "bundle install" en el terminal
+143- Se modifica en el "articles_controller" el metodo index, "@articles = Article.paginate(page: params[:page],per_page:10).publicados.ultimos".
+144- Se modifica el modelo article, el scope ultimos, se le quita el limite de registros, "	scope :ultimos, ->{order("created_at DESC").limit(10)}" .
+145- Se agrega en la vista index de articles un helper de "will_paginate", para poder moverse entre las paginas atravez controles.
+
+MARKUP EDITOR 1:2
+Pre-Procesador de html.
+Editor de texto.
+EpicEditor: permite embeber un editor de MARKUP con javaScript en la pagina.
+146- Se instala en el GemFile la gema de EpicEditor, gem "epic-editor-rails".
+147- Se ejecuta un "bundle install" en el terminal.
+148- En "assets-javascripts-application.js", se pone un require "//= require epiceditor" para q se pueda utilizar el editor de texto de este.
+149- Se modifica el formulario de articles, se agrega un div q incluye un id de epicEditor, "<div id="epiceditor" style:"height:250px;"></div>".
+150- Y se cambia el atributo style del body del formulario de articles, style:"display:none;".
+151- Se inicializa el editor el en formularios de articles se crea un "script" en la parte final del archivo.
+152- Se le agrega un id al formulario de articles para poder referenciarlo, html: {id: "articles_form"}.
+153- Se cambia en el formulario de articles el div de tipo "f.text_area" a "f.hidden_field" y se le quita la clase y el style y se le agregga un ID, id:"body-textarea". 
+154- Se modifica el modelo article el metodo "save_categories", y se le add, "unless @categories.nil?".
+155- Se modifca el show de articles el body, "<%= @article.body.html_safe %> ".
+
+MARKUP EDITOR Y SAFE 2:2
+156- Se crea una migracion, "rails g migration add_column_markup_body_to_articles markup_body:text". 	
+157- Y se ejecuta un "rake db:migrate".
+158- Se add otro campo escondido en el formulario de articles, "<%= f.hidden_field :markup_body, id:"markup-body-textarea" %>".
+159- Se add una nueva funcion en el formulario de articles el "script", $("#markup-body-textarea").val( editor.exportFile("nuevo_articulo"));.
+160- Se modifica los strong_paramns de "articles_controller", params.require(:article).permit(:title,:body,:cover,:categories, :markup_body).
+161- En el formulario de "articles_controller" en el  inicializador del epicEditor se pone una propiedad para q no se corrompa el codigo, textarea :"markup-body-textarea".
+162- En el GemFile se instala la gema, gem "sanitize" y se ejecuta un "Bundle install".
+163- En el show de articles, se modifica el campo body, se limpia de scripts, "<%= Sanitize.fragment(@article.body, Sanitize::Config::RELAXED).html_safe  %>".
+
+RENDER CON COLECCIONES:
+Conjunto de objetos q se trae de la BD.
+164- Se modifica el "index" para q cada articulo se ponga al lado uno del otro.
+165- Se modifica el "index" para q cada articulo tenga la imagen de articulo como portada de este.
+166- En el "style" se add dos estilos nuevos, ".relative y .absolute".
+167- Y se aplican estas al index de articles y se add una nueva clase al "style", ".article-height".
+168- Se add al "style" una nueva clase, ".background-cover".
+169- A lindex de articles de le pone un render a una coleccion.
+170- Se modifica la vista show de categories, Se le add un render.
+
+AVATARS CON GRAVATAR:
+171- Se modifica completamente la vista "show" de articles.
+172- Se add nuevas clases al "style", ".be-red y .botton-space y text-right y .be-small y .underline y .text-justify"
+173- En el "style" se modifica la clase "blue"
+174- En la vista show de articles se pone un render, "<%= render "articles/comments" %>".
+175- Se crea un formulario en articles "_comments"
+176- En el "style" se pone una nueva clase ".grey".
+177- Se llena el formulario(partial) comments de articles.
+178- Al parcial comments de articles se le hace un render a una coleccion, "<%= render @article.comments %>".
+179- Se crea una coleccion en la carpeta comments, "_comment.html.erb".
+180- Se llena la colecion "comment" de article.
+181- Se modifica el modelo "user" se le add un metodo "avatar" para poder agregar el avatar al usuario o imagen usando gravatar. 
+
+APPLICATION HERLPERS:
+Codigo q va a generar una parte de la vista nos va a ayudar a encapsular partes de la vista.
+182- Se modifica el show de articles se le add una etiqueta "header".
+183- En el archivo "application_helper", helpers-application_helper, se add un metodo "article_cover".
+184- En el show de articles se elimina el "header" y se pone este en "application_helper" de helpers en el metodo "article_cover".
+185- Se modifica el show de articles para q pueda usar el metodo de la carpeta "helpers", "<%= article_header @article.cover.url %>".
+186- Se modifica los "flash message" del layout.
+
+MANDAR MAILS:
+187- Se corre en el terminal un generador para los mailers "rails g mailer articleMailer".
+188- Se modifica el archivo "application_mailer", de la carpeta mailers - application_mailer, se add el emisor del correo. 
+189- En la carpeta "mailers" en el archivo "article_cailer", se crea el metodo para enviar el correo "new_article".
+190- Se crea una vista para el metodo "new_article" del mailer
+191- En la carpeta de vistas "article_mailer" se crea la vista para el metodo de "mailer" "new_article.html.erb" en esta vista se configura el texto q se le va enviar en el correo al usuario. 
+192- En "config - environments - development", se add el dominio al q se va subir la pagina em modo desarrollador "for mailing", "config.action_mailer.default_url_options = {host: "localhost:3000"}".
+193- En "config - environments - production", se add el dominio al q se va a subir la pagina en modo produccion"config.action_mailer.default_url_options = {host: "codigofacilito.com"}".
+194- En el GemFile se instala una gema para probar correos gem "letter_opener" y se ejecuta un "bundle install".
+195- En "config - environments - development", se add una configuracion para elegir q mande los correos por "letter_opener".
+196- En el modelo de article, se crea un callback "after_create :send_mailer"

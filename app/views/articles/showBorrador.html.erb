@@ -1,0 +1,35 @@
+<h1><%= @article.title %></h1>
+<% unless @article.user.nil? %>
+	<p>
+		Escrito por: <%= @article.user.email %>
+	</p>
+<%end%>
+
+<div class="field"><!-- Muestra las categorias a las q pertenece ese articulo f-->
+	<% @article.categories.each do |category|%>
+		<%= link_to category.name, category, style:"color:#{category.color}" %>
+	<%end%>
+</div>
+<div class="field">
+	<%= image_tag @article.cover.url(:thumb) %><!-- Genera un elemento imagen en tamaño pequeño-->
+</div>
+<p>
+	Visitas: <%= @article.visits_count %> 
+</p>
+<div>
+	<%= Sanitize.fragment(@article.body, Sanitize::Config::RELAXED).html_safe  %> <!-- Muestra la informacion con el marcado de EpicEdictor--> <!-- Limpia este fragmento, quita los scripts -->
+</div>
+<div class="field">
+	<h3>Comentarios</h3>
+	<%= render "comments/form" %> <!-- Me redirecciona al form de comments, para crear el comentario -->
+	<ul id="comments-box">
+		<% @article.comments.each do |comment| %>
+			<li>
+				<%= comment.body %> - <%= comment.user.email %><!-- Muestra el comentario y usuario q lo creo -->			
+			</li>			
+		<%end%>
+	</ul>
+</div>
+<div>
+	<%= link_to "Editar", edit_article_path(@article) %>
+</div>

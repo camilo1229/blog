@@ -1,0 +1,13 @@
+<html>
+<head>
+</head>
+<body>
+	<h1><%= @article.title %></h1> <!-- titulo del articulo-->
+	<p>
+		<%= truncate(@article.body, length: 30) %> <!-- Me muestra los primeros 30 caracteres del cuerpo -->
+	</p>
+	<p>
+		<%= link_to "Leer mas", article_url(@article) %> <!-- un link al show de ese articulo -->
+	</p>
+</body>
+</html>

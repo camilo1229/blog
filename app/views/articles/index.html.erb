@@ -1,0 +1,10 @@
+<div class="container" style="margin:0 auto;">
+	<h1>Articulos</h1>
+	<div class="row">
+		<%= render @articles %> <!-- Se le pasa una coleccion en vez de un partial--><!-- Cuando al metodo "render" se le pasa un arreglo del modelo de la BD este itera sobre el arreglo(coleccion) como lo haria < % = @articles.each do |article| %> -->
+	</div>
+	<div class="top-space text-center">
+	<%= will_paginate @articles %> <!-- hellper de will_paginate. Muestra controles para moverse entre las paginas -->	
+	</div>
+</div>
+
