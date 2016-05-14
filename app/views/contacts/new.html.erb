@@ -1,0 +1,23 @@
+  <h3>Contacto</h3>
+
+  <%= form_for @contact do |f| %>
+  	<div>
+  	<%= f.label :nombre %>
+    <%= f.text_field :name, :required => true %>
+    </div>
+    <div>
+    <%= f.label :Correo %>
+    <%= f.text_field :email, :required => true %>
+    </div>
+    <div>
+    <%= f.label :Mensage %>
+    <%= f.text_area :message, :required => true %>
+    </div>
+    <div style="display: none;">
+      <%= f.text_field :nickname %>
+    </div>
+    <div>
+      <%= f.submit 'Enviar', :class=> "btn btn-primary" %>
+     </div>
+  <% end %>
+</div>
